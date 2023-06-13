@@ -220,6 +220,24 @@ async function run() {
 
 
 
+    app.patch('/class/payment/:id', async (req, res) => {
+      const id = req.params.id;
+      console.log(id);
+      const filter = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: {
+          payment: 'done'
+        },
+      };
+
+      const result = await classesCollection.updateOne(filter, updateDoc);
+      res.send(result);
+
+    })
+
+
+    
+
 
 
 
