@@ -273,6 +273,13 @@ async function run() {
     })
 
 
+    app.get('/classespage', async (req, res) => {
+      const result = await classesCollection.find({status: "approved"}).toArray();
+      res.send(result);
+    })
+
+    
+
 
 
 
