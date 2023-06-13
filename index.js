@@ -75,9 +75,24 @@ async function run() {
       next();
     }
  
-   
+    app.get('/users', async (req, res) => {
+      const result = await usersCollection.find().toArray();
+      res.send(result);
+    });
+  app.get('/instructors', async (req, res) => {
+      const result = await usersCollection.find({role: "instructor"}).toArray();
+      res.send(result);
+    });
+  app.get('/selected', async (req, res) => {
+      const result = await classesCollection.find({select: "selected"}).toArray();
+      res.send(result);
+    });
+  app.get('/payment', async (req, res) => {
+      const result = await classesCollection.find({payment: "done"}).toArray();
+      res.send(result);
+    });
 
-
+    
 
 
 
