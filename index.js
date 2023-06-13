@@ -284,7 +284,19 @@ async function run() {
       res.send(result);
     })
 
+    app.get('/instructorclass',async(req,res) =>{
+
+      let query = {};
+     
+
+      if(req.query?.instructoremal){
+        query = {instructoremal : req.query.instructoremal};
+        
+      }
    
+      const  result = (await classesCollection.find(query).toArray());
+      res.send(result);
+   })
 
 
 
