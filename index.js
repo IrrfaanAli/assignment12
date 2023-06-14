@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser')
 require('dotenv').config()
 
 const port = process.env.PORT || 5000;
@@ -9,6 +10,8 @@ const port = process.env.PORT || 5000;
 // middleware
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const verifyJWT = (req, res, next) => {
   const authorization = req.headers.authorization;
@@ -265,7 +268,34 @@ async function run() {
       res.send(result);
 
     })
+
+
+
+    app.patch('/api/feedback/:id', async (req, res) => {
+      const { id } = req.params;
+      const { content } = req.body;
+
+      console.log(id)
+      console.log(content)
+    
+      // const filter = { _id: new ObjectId(id) };
+      // const updateDoc = {
+      //   $set: {
+      //     feedback: 'dkfhdjfhdj'
+      //   },
+      // };
+
+      // const result = await classesCollection.updateOne(filter, updateDoc);
+      // res.send(result);
+    })
    
+
+
+
+
+
+
+
 
     app.get('/classes', async (req, res) => {
       const result = await classesCollection.find().toArray();
@@ -283,14 +313,17 @@ async function run() {
       const result = await classesCollection.insertOne(newItem)
       res.send(result);
     })
+    
 
-    app.get('/instructorclass',async(req,res) =>{
+   
+
+    app.get('/instructorallclass',async(req,res) =>{
 
       let query = {};
-     
+      console.log(req.query)
 
-      if(req.query?.instructoremal){
-        query = {instructoremal : req.query.instructoremal};
+      if(req.query?.instructoremail){
+        query = {instructoremail : req.query.instructoremail};
         
       }
    
